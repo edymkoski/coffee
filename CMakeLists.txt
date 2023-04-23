@@ -53,6 +53,9 @@ find_package(SDL2 REQUIRED)
 # Eigen for vector math
 find_package(Eigen3 3.4 REQUIRED NO_MODULE)
 
+# EnTT 
+find_package(EnTT REQUIRED NO_MODULE)
+
 # ####   Project Modules ######
 
 # Add the coffee library

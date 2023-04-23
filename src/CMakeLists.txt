@@ -14,5 +14,6 @@ target_link_libraries(coffee
     fmt
     spdlog
     SDL2
+    EnTT::EnTT
     Eigen3::Eigen
 )
