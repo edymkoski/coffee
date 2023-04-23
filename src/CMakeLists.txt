@@ -1,5 +1,6 @@
 set(coffee_SRC
     Level.cpp
+    CoffeeGame.cpp
 )
 
 add_library(coffee STATIC ${coffee_SRC})
