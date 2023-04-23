@@ -7,5 +7,6 @@ add_executable(coffee-game main.cpp)
 # find_package( Cli11 REQUIRED )
 target_link_libraries(coffee-game
     # Cli11
+    SDL2
     coffee
 )

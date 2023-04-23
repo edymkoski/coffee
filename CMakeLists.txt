@@ -47,6 +47,9 @@ add_compile_definitions(SPDLOG_FMT_EXTERNAL)
 # add_compile_definitions(
 # $<$<CONFIG:DEBUG>:SPDLOG_ACTIVE_LEVEL=SPDLOG_LEVEL_DEBUG>)
 
+# SLD2
+find_package(SDL2 REQUIRED)
+
 # Eigen for vector math
 find_package(Eigen3 3.4 REQUIRED NO_MODULE)
 

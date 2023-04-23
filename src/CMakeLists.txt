@@ -12,5 +12,6 @@ target_include_directories(coffee PUBLIC
 target_link_libraries(coffee
     fmt
     spdlog
+    SDL2
     Eigen3::Eigen
 )
