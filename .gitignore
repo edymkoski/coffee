@@ -1,0 +1,34 @@
+# Eclipse            #
+######################
+.metadata
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+
+# System spacific makefiles # 
+######################
+paths.mk
+
+# Logs and databases #
+######################
+*.log
+
+# Output             # 
+######################
+*.vtp
+
+# Tmp files          # 
+######################
+*.swp
+RemoteSystemsTempFiles
+
+# VS Code            # 
+######################
+*.vscode
+
+# Python             # 
+######################
+*.egg-info
+__pycache__
