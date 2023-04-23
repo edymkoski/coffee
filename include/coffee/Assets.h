@@ -4,23 +4,18 @@
  * This software is distributed under the MIT license (see ~/License.md)
  ****************************************************************************/
 
-// Initial game demo
+// Asset managers
 
 #pragma once
 
-#include <SDL2/SDL.h>
-
 namespace coffee {
+namespace engine {
 
-class CoffeeGame {
-   public:
-    explicit CoffeeGame(SDL_Window* window);
+class Sprites {};
 
-    void run();
+class Animations {};
 
-   private:
-    // The window we'll be rendering to
-    SDL_Window* _window = nullptr;
-};
+class Assets {};
 
+}  // namespace engine
 }  // namespace coffee

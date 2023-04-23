@@ -4,9 +4,10 @@
  * This software is distributed under the MIT license (see ~/License.md)
  ****************************************************************************/
 
-// Initial Level demo
+// Initial game demo
 
 #include <coffee/CoffeeGame.h>
+#include <coffee/Level.h>
 
 namespace coffee {
 CoffeeGame::CoffeeGame(SDL_Window* window) : _window(window) {}
@@ -22,13 +23,24 @@ void CoffeeGame::run() {
     // Update the surface
     SDL_UpdateWindowSurface(_window);
 
+    // Create and initialize the game level
+    Level level;
+    level.initialize();
+
     // Main game loop
     SDL_Event e;
     bool quit = false;
     while (quit == false) {
         while (SDL_PollEvent(&e)) {
-            if (e.type == SDL_QUIT) quit = true;
+            if (e.type == SDL_QUIT) {
+                quit = true;
+            }
         }
+
+        // update and draw level here
+        level.update(dt);
+
+        // TODO: game-level overlay with diagnostics, such as FPS
     }
 }
 

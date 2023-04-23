@@ -8,14 +8,22 @@
 
 #pragma once
 
+#include <coffee/Assets.h>
+
 namespace coffee {
 
 class Level {
    public:
+    Level() = default;
+
+    // initialize object
+    void initialize();
+
+    // update the state of the level
     void update();
 
    private:
-    // members
+    engine::Sprites _spriteManager;
 };
 
 }  // namespace coffee
