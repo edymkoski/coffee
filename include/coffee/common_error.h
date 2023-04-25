@@ -8,11 +8,11 @@
 
 #pragma once
 
-#include <fmt/core.h>
-
 #include <exception>
 #include <sstream>
 #include <stdexcept>
+
+#include "fmt/core.h"
 
 namespace coffee {
 

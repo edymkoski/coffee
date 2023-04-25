@@ -6,9 +6,13 @@
 
 // Initial Level demo
 
-#include <coffee/Level.h>
+#include "coffee/Level.h"
 
 namespace coffee {
+
+void Level::initialize() {
+    // no-op
+}
 
 void Level::update() {
     // no-op

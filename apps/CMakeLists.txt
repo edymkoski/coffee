@@ -10,3 +10,9 @@ target_link_libraries(coffee-game
     SDL2
     coffee
 )
+
+
+add_custom_target(copy-assets
+    COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_LIST_DIR}/resources ${CMAKE_CURRENT_BINARY_DIR}/resources
+)
+add_dependencies(coffee-game copy-assets)

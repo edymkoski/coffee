@@ -4,24 +4,19 @@
  * This software is distributed under the MIT license (see ~/License.md)
  ****************************************************************************/
 
-// Initial game demo
+// Coffee engine top-level functionality
 
 #pragma once
 
-#include "SDL2/SDL.h"
-
 namespace coffee {
+namespace engine {
 
-class CoffeeGame {
-   public:
-    explicit CoffeeGame(SDL_Window* window, SDL_Renderer* renderer);
+// Initialize the coffee engine - typically called once at the beginning of the game
+// Returns a bool to indicate if initialization was successful
+bool initialize();
 
-    void run();
+// Finalize the coffee engine - typically called once before program exit
+void finalize();
 
-   private:
-    // The window we'll be rendering to
-    SDL_Window* _window = nullptr;
-    SDL_Renderer* _renderer = nullptr;
-};
-
+}  // namespace engine
 }  // namespace coffee

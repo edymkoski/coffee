@@ -1,5 +1,6 @@
 set(coffee_SRC
     Level.cpp
+    coffee.cpp
     CoffeeGame.cpp
 )
 
@@ -14,6 +15,7 @@ target_link_libraries(coffee
     fmt
     spdlog
     SDL2
+    SDL2_ttf
     EnTT::EnTT
     Eigen3::Eigen
 )

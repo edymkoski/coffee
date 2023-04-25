@@ -6,10 +6,8 @@
 
 // Entity tests
 
-#include <gtest/gtest.h>
-
-#include <entt/entt.hpp>
-// #include <entt.hpp>
+#include "entt/entt.hpp"
+#include "gtest/gtest.h"
 
 namespace coffee {
 

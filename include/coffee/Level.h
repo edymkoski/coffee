@@ -8,7 +8,7 @@
 
 #pragma once
 
-#include <coffee/Assets.h>
+#include "coffee/Assets.h"
 
 namespace coffee {
 
@@ -23,6 +23,8 @@ class Level {
     void update();
 
    private:
+    // FIXME: should this really have its own asset manager?  or should it
+    // receive assets from the client for better long-term management?
     engine::Sprites _spriteManager;
 };
 

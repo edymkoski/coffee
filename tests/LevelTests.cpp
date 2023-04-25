@@ -6,8 +6,8 @@
 
 // Level tests
 
-#include <coffee/Level.h>
-#include <gtest/gtest.h>
+#include "coffee/Level.h"
+#include "gtest/gtest.h"
 
 namespace coffee {
 

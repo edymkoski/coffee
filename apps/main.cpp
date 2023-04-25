@@ -4,10 +4,11 @@
  * This software is distributed under the MIT license (see ~/License.md)
  ****************************************************************************/
 
-#include <SDL2/SDL.h>
-#include <coffee/CoffeeGame.h>
-
 #include <cstdio>
+
+#include "SDL2/SDL.h"
+#include "coffee/CoffeeGame.h"
+#include "coffee/coffee.h"
 
 // Screen dimension constants
 const int SCREEN_WIDTH = 1080;
@@ -18,30 +19,34 @@ using namespace coffee;
 int main(int argc, char* args[]) {
     // The window we'll be rendering to
     SDL_Window* window = nullptr;
+    SDL_Renderer* renderer = nullptr;  // Should renderer be owned by the game?
 
     // Initialize SDL
-    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-        printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
-    } else {
+    if (engine::initialize()) {
         // Create window
         window = SDL_CreateWindow("Coffee", SDL_WINDOWPOS_UNDEFINED,
                                   SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH,
                                   SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+
         if (window == nullptr) {
             printf("Window could not be created! SDL_Error: %s\n",
                    SDL_GetError());
-        } else {
-            CoffeeGame game(window);
-
-            game.run();
         }
+
+        renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+
+        if (renderer == nullptr) {
+            printf("Renderer could not be created! SDL_Error: %s\n",
+                   SDL_GetError());
+        }
+
+        CoffeeGame game(window, renderer);
+        game.run();
     }
 
-    // Destroy window
+    // Destroy windows
+    SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
-
-    // Quit SDL subsystems
-    SDL_Quit();
 
     return 0;
 }
