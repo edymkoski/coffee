@@ -1,6 +1,7 @@
 set(coffee_SRC
     Animation.cpp
     Assets.cpp
+    Movement.cpp
     Scene.cpp
     coffee.cpp
     CoffeeGame.cpp

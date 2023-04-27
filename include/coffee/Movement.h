@@ -4,37 +4,35 @@
  * This software is distributed under the MIT license (see ~/License.md)
  ****************************************************************************/
 
-// Animation components and system
+// Sprite movement components and system
 
 #pragma once
 
-#include "coffee/Assets.h"
 #include "coffee/ISystem.h"
+#include "coffee/components.h"
 #include "entt/entt.hpp"
 
 namespace coffee {
 namespace engine {
 
-// Animation component
-
-struct Animation {
-    // pointer to frames
-    entt::resource<engine::SDLFrames> frames;
-
-    // progressed time, ms
-    uint32_t time = 0;
-
-    // ms / frame
-    uint32_t speed = 100;
+// Direction component
+// Note: velocity is given as an int in order to not have roundoff errors at
+// large values
+struct Direction {
+    Vec2f value;
 };
 
-// System for running animations for sprites
-// FIXME: add complex capability that allows for more complex compositing of
-// multiple clips
-class AnimationSystem : public ISystem {
+// Speed component
+// [pixels/s]
+struct Speed {
+    float value = 0.f;  // @todo int16?
+};
+
+// System for moving sprites
+class MovementSystem : public ISystem {
    public:
-    explicit AnimationSystem(SDL_Renderer *renderer);
-    virtual ~AnimationSystem() {}
+    MovementSystem() = default;
+    virtual ~MovementSystem() {}
 
     // Update componenets affected by this system
     void update(entt::registry &registry, uint64_t dt) const override;
@@ -43,7 +41,6 @@ class AnimationSystem : public ISystem {
     void render(entt::registry &registry) const override;
 
    private:
-    SDL_Renderer *_renderer = nullptr;
 };
 
 }  // namespace engine

@@ -49,7 +49,7 @@ void AnimationSystem::render(entt::registry &registry) const {
         SDL_QueryTexture(tex, nullptr, nullptr, &w, &h);
 
         // @todo: center of texture, or upper-left?
-        SDL_Rect dest = {pos.x(), pos.y(), w, h};
+        SDL_Rect dest = {pos.value.x(), pos.value.y(), w, h};
 
         SDL_RenderCopy(_renderer, tex, nullptr, &dest);
     }

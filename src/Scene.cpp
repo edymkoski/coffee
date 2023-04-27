@@ -18,7 +18,8 @@ Scene::Scene(SDL_Renderer* renderer)
       _textures(),
       _frames(),
       _registry(),
-      _animation(renderer) {}
+      _animation(renderer),
+      _movement() {}
 
 void Scene::initialize() {
     // Load textures into the cache
@@ -45,14 +46,22 @@ void Scene::initialize() {
     _frames.load("right_idle"_hs, texPath.c_str(), _renderer,
                  SDL_Rect{0, 0, 32, 32}, 2, 4.0);
 
+    _frames.load("right_walk"_hs, texPath.c_str(), _renderer,
+                 SDL_Rect{0, 64, 32, 32}, 4, 4.0);
+
     // Create a character
     const auto entity = _registry.create();
-    _registry.emplace<engine::Animation>(entity, _frames["right_idle"_hs], 0,
+    _registry.emplace<engine::Animation>(entity, _frames["right_walk"_hs], 0,
                                          200);
-    _registry.emplace<engine::Position>(entity, 500, 100);
+    _registry.emplace<engine::Position>(entity, engine::Vec2i(50, 100));
+    _registry.emplace<engine::Direction>(entity, engine::Vec2f(100, 0));
+    _registry.emplace<engine::Speed>(entity, 375.0f);
 }
 
-void Scene::update(uint64_t dt) { _animation.update(_registry, dt); }
+void Scene::update(uint64_t dt) { 
+    _movement.update(_registry, dt); 
+    _animation.update(_registry, dt); 
+}
 
 void Scene::render() { _animation.render(_registry); }
 

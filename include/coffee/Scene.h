@@ -10,6 +10,7 @@
 
 #include "coffee/Animation.h"
 #include "coffee/Assets.h"
+#include "coffee/Movement.h"
 #include "entt/entt.hpp"
 
 namespace coffee {
@@ -40,7 +41,9 @@ class Scene {
 
     entt::registry _registry;
 
+    // @todo list of ISystems?
     engine::AnimationSystem _animation;
+    engine::MovementSystem _movement;
 };
 
 }  // namespace coffee
