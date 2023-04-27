@@ -4,28 +4,43 @@
  * This software is distributed under the MIT license (see ~/License.md)
  ****************************************************************************/
 
-// Initial Level demo
+// Initial Scene demo
 
 #pragma once
 
+#include "coffee/Animation.h"
 #include "coffee/Assets.h"
+#include "entt/entt.hpp"
 
 namespace coffee {
 
-class Level {
+// Hashable string for asset cache access
+using entt::operator""_hs;
+
+class Scene {
    public:
-    Level() = default;
+    explicit Scene(SDL_Renderer* renderer);
 
     // initialize object
     void initialize();
 
     // update the state of the level
-    void update();
+    void update(uint64_t dt);
+
+    // render the scene
+    void render();
 
    private:
+    SDL_Renderer* _renderer = nullptr;
+
     // FIXME: should this really have its own asset manager?  or should it
     // receive assets from the client for better long-term management?
-    engine::Sprites _spriteManager;
+    engine::SDLTextureCache _textures;
+    engine::SDLFramesCache _frames;
+
+    entt::registry _registry;
+
+    engine::AnimationSystem _animation;
 };
 
 }  // namespace coffee

@@ -12,6 +12,7 @@
 
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_ttf.h"
+#include "SDL2/SDL_image.h"
 
 namespace coffee {
 namespace engine {
@@ -20,6 +21,12 @@ bool initialize() {
     // Initialize SDL
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
+        return false;
+    }
+
+    // Initialize image subsystem
+    if (IMG_Init(IMG_INIT_JPG) < 0) {
+        printf("Error initializing SDL_image: %s\n", IMG_GetError());
         return false;
     }
 
@@ -36,6 +43,9 @@ bool initialize() {
 void finalize() {
     // Finalize the font lib
     TTF_Quit();
+
+    // Finalize the SDL IMG subsystem
+    IMG_Quit();
 
     // Quit SDL subsystems
     SDL_Quit();

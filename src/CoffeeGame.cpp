@@ -13,7 +13,7 @@
 #include <string>
 
 #include "SDL2/SDL_ttf.h"
-#include "coffee/Level.h"
+#include "coffee/Scene.h"
 
 namespace coffee {
 CoffeeGame::CoffeeGame(SDL_Window* window, SDL_Renderer* renderer)
@@ -40,7 +40,7 @@ void CoffeeGame::run() {
     constexpr uint64_t interval = 17;
 
     // Clear the surface
-    SDL_SetRenderDrawColor(_renderer, 80, 80, 80, 255);
+    SDL_SetRenderDrawColor(_renderer, 120, 120, 120, 255);
     SDL_RenderClear(_renderer);
     SDL_RenderPresent(_renderer);
 
@@ -60,8 +60,8 @@ void CoffeeGame::run() {
     }
 
     // Create and initialize the game level
-    Level level;
-    level.initialize();
+    Scene scene(_renderer);
+    scene.initialize();
 
     // Main game loop
     SDL_Event e;
@@ -89,8 +89,8 @@ void CoffeeGame::run() {
             // Clear the window for the current frame
             SDL_RenderClear(_renderer);
 
-            // level.update(dt);
-            // level.render();
+            scene.update(dt);
+            scene.render();
 
             // Game-level overlay with diagnostics, such as FPS
             {

@@ -4,17 +4,17 @@
  * This software is distributed under the MIT license (see ~/License.md)
  ****************************************************************************/
 
-// Level tests
+// Scene tests
 
-#include "coffee/Level.h"
+#include "coffee/Scene.h"
 #include "gtest/gtest.h"
 
 namespace coffee {
 
 // Stub test
-TEST(LevelTest, Stub) {
-    Level level;
-    level.update();
-    ASSERT_TRUE(true);
+TEST(SceneTest, Stub) {
+    // Scene scene;
+    // scene.update();
+    ASSERT_TRUE(false);
 }
 }  // namespace coffee

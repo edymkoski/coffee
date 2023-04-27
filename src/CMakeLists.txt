@@ -1,5 +1,7 @@
 set(coffee_SRC
-    Level.cpp
+    Animation.cpp
+    Assets.cpp
+    Scene.cpp
     coffee.cpp
     CoffeeGame.cpp
 )
@@ -16,6 +18,7 @@ target_link_libraries(coffee
     spdlog
     SDL2
     SDL2_ttf
+    SDL2_image
     EnTT::EnTT
     Eigen3::Eigen
 )
