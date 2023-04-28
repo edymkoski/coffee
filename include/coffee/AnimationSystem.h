@@ -9,6 +9,7 @@
 #pragma once
 
 #include "coffee/Assets.h"
+#include "coffee/ISystem.h"
 #include "entt/entt.hpp"
 
 namespace coffee {
@@ -27,28 +28,16 @@ struct Animation {
     uint32_t speed = 100;
 };
 
-// System interface
-class System {
-   public:
-    virtual ~System() {}
-
-    // Update componenets affected by this system
-    virtual void update(entt::registry &registry, uint64_t dt) const = 0;
-
-    // Render components affected by this system
-    virtual void render(entt::registry &registry) const = 0;
-};
-
 // System for running animations for sprites
 // FIXME: add complex capability that allows for more complex compositing of
 // multiple clips
-class AnimationSystem : public System {
+class AnimationSystem : public ISystem {
    public:
     explicit AnimationSystem(SDL_Renderer *renderer);
     virtual ~AnimationSystem() {}
 
     // Update componenets affected by this system
-    void update(entt::registry &registry, uint64_t dt) const override;
+    void update(entt::registry &registry, uint64_t dt) override;
 
     // Render components affected by this system
     void render(entt::registry &registry) const override;

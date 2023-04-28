@@ -22,12 +22,10 @@ using Vec2i = Eigen::Vector<int32_t, 2>;
 // Position component
 // Note: position is given as an int in order to not have roundoff errors at
 // large values
-using Position = Vec2i;
-
-// Velocity component
-// Note: velocity is given as an int in order to not have roundoff errors at
-// large values
-using Position = Vec2i;
+// @todo: implement sub-pixel movement if smoothing is needed
+struct Position {
+    Vec2i value;
+};
 
 }  // namespace engine
 }  // namespace coffee

@@ -6,7 +6,7 @@
 
 // Animation system
 
-#include "coffee/Animation.h"
+#include "coffee/AnimationSystem.h"
 
 #include "SDL2/SDL.h"
 #include "coffee/components.h"
@@ -17,7 +17,7 @@ namespace engine {
 AnimationSystem::AnimationSystem(SDL_Renderer *renderer)
     : _renderer(renderer) {}
 
-void AnimationSystem::update(entt::registry &registry, uint64_t dt) const {
+void AnimationSystem::update(entt::registry &registry, uint64_t dt) {
     auto view = registry.view<Animation>();
 
     uint32_t dt32 = static_cast<uint32_t>(dt);
@@ -49,7 +49,7 @@ void AnimationSystem::render(entt::registry &registry) const {
         SDL_QueryTexture(tex, nullptr, nullptr, &w, &h);
 
         // @todo: center of texture, or upper-left?
-        SDL_Rect dest = {pos.x(), pos.y(), w, h};
+        SDL_Rect dest = {pos.value.x(), pos.value.y(), w, h};
 
         SDL_RenderCopy(_renderer, tex, nullptr, &dest);
     }
