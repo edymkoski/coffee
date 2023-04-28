@@ -64,18 +64,19 @@ void CoffeeGame::run() {
     scene.initialize();
 
     // Main game loop
-    SDL_Event e;
+    // SDL_Event e;
     bool quit = false;
     uint64_t previousTime = 0;  // Initialize to zero, so that the first frame
                                 // will be updated and rendered
     float fpsAvg = 0.0;
     while (quit == false) {
         // Check for exit
-        while (SDL_PollEvent(&e)) {
-            if (e.type == SDL_QUIT) {
-                quit = true;
-            }
-        }
+        // FIXME: could retain here if it does not empty the queue
+        // while (SDL_PollEvent(&e)) {
+        //     if (e.type == SDL_QUIT) {
+        //         quit = true;
+        //     }
+        // }
 
         // Compute dt for a limited frame rate
         const uint64_t currentTime = SDL_GetTicks64();
@@ -89,7 +90,10 @@ void CoffeeGame::run() {
             // Clear the window for the current frame
             SDL_RenderClear(_renderer);
 
-            scene.update(dt);
+            quit = scene.update(dt);
+            if (quit) {  // exit early without completing further actions
+                break;
+            }
             scene.render();
 
             // Game-level overlay with diagnostics, such as FPS

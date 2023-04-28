@@ -8,9 +8,10 @@
 
 #pragma once
 
-#include "coffee/Animation.h"
+#include "coffee/AnimationSystem.h"
 #include "coffee/Assets.h"
-#include "coffee/Movement.h"
+#include "coffee/MovementSystem.h"
+#include "coffee/PlayerInput.h"
 #include "entt/entt.hpp"
 
 namespace coffee {
@@ -25,8 +26,9 @@ class Scene {
     // initialize object
     void initialize();
 
-    // update the state of the level
-    void update(uint64_t dt);
+    // update the state of the scene
+    // returns whether a "quit" signal has been received
+    bool update(uint64_t dt);
 
     // render the scene
     void render();
@@ -41,7 +43,8 @@ class Scene {
 
     entt::registry _registry;
 
-    // @todo list of ISystems?
+    // @todo list of ISystems?  How to preserve a sensible order?
+    engine::PlayerInput _player;
     engine::AnimationSystem _animation;
     engine::MovementSystem _movement;
 };

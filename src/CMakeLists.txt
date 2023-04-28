@@ -1,10 +1,11 @@
 set(coffee_SRC
-    Animation.cpp
+    AnimationSystem.cpp
     Assets.cpp
-    Movement.cpp
+    MovementSystem.cpp
     Scene.cpp
     coffee.cpp
     CoffeeGame.cpp
+    PlayerInput.cpp
 )
 
 add_library(coffee STATIC ${coffee_SRC})

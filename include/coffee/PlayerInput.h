@@ -4,7 +4,7 @@
  * This software is distributed under the MIT license (see ~/License.md)
  ****************************************************************************/
 
-// System interface, for an Entity-Componenet-System
+// Collects user inputs, generating game events
 
 #pragma once
 
@@ -13,16 +13,17 @@
 namespace coffee {
 namespace engine {
 
-// System interface
-class ISystem {
+// User Input - emmits events to the appropriate listeners
+class PlayerInput : public entt::emitter<PlayerInput> {
    public:
-    virtual ~ISystem() {}
+    PlayerInput() = default;
+    virtual ~PlayerInput() {}
 
-    // Update componenets affected by this system
-    virtual void update(entt::registry &registry, uint64_t dt) = 0;
+    // Handle all inputs
+    // Returns whether a "quit" signal has been received
+    bool handleInput();
 
-    // Render components affected by this system
-    virtual void render(entt::registry &registry) const = 0;
+   private:
 };
 
 }  // namespace engine

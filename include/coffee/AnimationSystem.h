@@ -37,7 +37,7 @@ class AnimationSystem : public ISystem {
     virtual ~AnimationSystem() {}
 
     // Update componenets affected by this system
-    void update(entt::registry &registry, uint64_t dt) const override;
+    void update(entt::registry &registry, uint64_t dt) override;
 
     // Render components affected by this system
     void render(entt::registry &registry) const override;
