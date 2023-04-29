@@ -11,7 +11,7 @@
 #include "coffee/AnimationSystem.h"
 #include "coffee/Assets.h"
 #include "coffee/MovementSystem.h"
-#include "coffee/PlayerInput.h"
+#include "coffee/PlayerSystem.h"
 #include "entt/entt.hpp"
 
 namespace coffee {
@@ -27,8 +27,7 @@ class Scene {
     void initialize();
 
     // update the state of the scene
-    // returns whether a "quit" signal has been received
-    bool update(uint64_t dt);
+    void update(uint64_t dt);
 
     // render the scene
     void render();
@@ -36,7 +35,7 @@ class Scene {
    private:
     SDL_Renderer* _renderer = nullptr;
 
-    // FIXME: should this really have its own asset manager?  or should it
+    // @todo: should this really have its own asset manager?  or should it
     // receive assets from the client for better long-term management?
     engine::SDLTextureCache _textures;
     engine::SDLFramesCache _frames;
@@ -44,7 +43,7 @@ class Scene {
     entt::registry _registry;
 
     // @todo list of ISystems?  How to preserve a sensible order?
-    engine::PlayerInput _player;
+    engine::PlayerSystem _player;
     engine::AnimationSystem _animation;
     engine::MovementSystem _movement;
 };

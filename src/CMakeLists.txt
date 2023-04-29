@@ -5,7 +5,8 @@ set(coffee_SRC
     Scene.cpp
     coffee.cpp
     CoffeeGame.cpp
-    PlayerInput.cpp
+    PlayerSystem.cpp
+    InputHandler.cpp
 )
 
 add_library(coffee STATIC ${coffee_SRC})

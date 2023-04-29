@@ -13,6 +13,7 @@
 #include <string>
 
 #include "SDL2/SDL_ttf.h"
+#include "coffee/InputHandler.h"
 #include "coffee/Scene.h"
 
 namespace coffee {
@@ -59,24 +60,25 @@ void CoffeeGame::run() {
         return;
     }
 
+    // Get the input
+    engine::InputHandler* g_input = engine::InputHandler::GetInstance();
+
     // Create and initialize the game level
     Scene scene(_renderer);
     scene.initialize();
 
     // Main game loop
-    // SDL_Event e;
     bool quit = false;
     uint64_t previousTime = 0;  // Initialize to zero, so that the first frame
                                 // will be updated and rendered
     float fpsAvg = 0.0;
     while (quit == false) {
-        // Check for exit
-        // FIXME: could retain here if it does not empty the queue
-        // while (SDL_PollEvent(&e)) {
-        //     if (e.type == SDL_QUIT) {
-        //         quit = true;
-        //     }
-        // }
+        // Manage user inputs and check for exit
+        g_input->handleInput();
+        if (g_input->quit()) {
+            quit = true;
+            break;
+        }
 
         // Compute dt for a limited frame rate
         const uint64_t currentTime = SDL_GetTicks64();
@@ -85,15 +87,10 @@ void CoffeeGame::run() {
         if (dt >= interval) {
             previousTime = currentTime;
 
-            // todo: check for exit
-
             // Clear the window for the current frame
             SDL_RenderClear(_renderer);
 
-            quit = scene.update(dt);
-            if (quit) {  // exit early without completing further actions
-                break;
-            }
+            scene.update(dt);
             scene.render();
 
             // Game-level overlay with diagnostics, such as FPS

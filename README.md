@@ -14,3 +14,12 @@ Original idea is faster-paced, less tedious take on XCOM-type titles.  The inten
 
 Easy to pick up, over a cup of coffee.
 
+Basic Engine
+
+A basic demo for building out the engine architecture includes:
+- Multiple player controllable entities, and the ability to switch between them
+- Player can shoot/collide with targets
+- Simple AI entities that can pursue the player characters
+- Basic particle effect, with player manipulated interactions (ex: attractor)
+This should exercise the basic functionality of the ECS and events architectures.  After this, will implement cameras, menus buttons, effects, etc.
+
