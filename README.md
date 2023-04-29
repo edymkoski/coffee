@@ -17,9 +17,34 @@ Easy to pick up, over a cup of coffee.
 Basic Engine
 
 A basic demo for building out the engine architecture includes:
-- Multiple player controllable entities, and the ability to switch between them
+- Multiple player controllable entities, and the ability to switch between them w/overlay
 - Player can shoot/collide with targets
-- Simple AI entities that can pursue the player characters
-- Basic particle effect, with player manipulated interactions (ex: attractor)
+- [DONE] Simple AI entities that can pursue the player characters
+- Basic particle and emitter effect, with player manipulated interactions (ex: attractor or grass)
 This should exercise the basic functionality of the ECS and events architectures.  After this, will implement cameras, menus buttons, effects, etc.
+
+Longer Term Features
+- animations management and compositing (random blinking during idle, directions, action sequences)
+- timers
+- mouse control
+- pathfinding
+- better enemy AI
+- map importing
+- modifiable terrain
+- pauseable-real-time
+- pause menu
+- 3d rendering layers
+- vfx
+- particle system and emitters
+- representative (placeholder, free) art
+- sound (placeholder, free)
+- combat system
+- stats (weapons, types, player, ai)
+- fog of war
+- overlay effects
+- post-game loot and stats
+
+Longest Term Features
+- Overworld game
+- combine both games into a single whole
 

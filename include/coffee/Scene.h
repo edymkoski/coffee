@@ -11,6 +11,7 @@
 #include "coffee/AnimationSystem.h"
 #include "coffee/Assets.h"
 #include "coffee/MovementSystem.h"
+#include "coffee/NpcSystem.h"
 #include "coffee/PlayerSystem.h"
 #include "entt/entt.hpp"
 
@@ -44,6 +45,7 @@ class Scene {
 
     // @todo list of ISystems?  How to preserve a sensible order?
     engine::PlayerSystem _player;
+    engine::NpcSystem _npc;
     engine::AnimationSystem _animation;
     engine::MovementSystem _movement;
 };

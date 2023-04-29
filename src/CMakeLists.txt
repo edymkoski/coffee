@@ -6,6 +6,7 @@ set(coffee_SRC
     coffee.cpp
     CoffeeGame.cpp
     PlayerSystem.cpp
+    NpcSystem.cpp
     InputHandler.cpp
 )
 

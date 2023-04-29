@@ -18,6 +18,8 @@ Scene::Scene(SDL_Renderer *renderer)
       _textures(),
       _frames(),
       _registry(),
+      _player(),
+      _npc(),
       _animation(renderer),
       _movement() {}
 
@@ -49,23 +51,36 @@ void Scene::initialize() {
     _frames.load("right_walk"_hs, texPath.c_str(), _renderer,
                  SDL_Rect{0, 64, 32, 32}, 4, 4.0);
 
+    // FIXME: generators for different entities
+
     // Create a player character
-    for (uint32_t i = 0; i < 2; ++i) {
-        const auto entity = _registry.create();
+    const auto playerEntity = _registry.create();
+    {
+        const auto entity = playerEntity;
         _registry.emplace<engine::Animation>(entity, _frames["right_walk"_hs],
                                              0, 200);
-        _registry.emplace<engine::Position>(entity,
-                                            engine::Vec2i(50, (i + 1) * 100));
+        _registry.emplace<engine::Position>(entity, engine::Vec2i(50, 100));
         _registry.emplace<engine::Direction>(entity, engine::Vec2f(100, 0));
-        _registry.emplace<engine::Speed>(entity, (i + 1) * 175.0f, 0);
+        _registry.emplace<engine::Speed>(entity, 350.0f, 0);
 
         _registry.emplace<engine::PlayerControllableTag>(entity);
+    }
+    // Create a NPC
+    {
+        const auto entity = _registry.create();
+        _registry.emplace<engine::Animation>(entity, _frames["right_idle"_hs],
+                                             0, 200);
+        _registry.emplace<engine::Position>(entity, engine::Vec2i(400, 400));
+        _registry.emplace<engine::Direction>(entity, engine::Vec2f(100, 0));
+        _registry.emplace<engine::Speed>(entity, 150.0f, 0);
+        _registry.emplace<engine::NpcAI>(entity, playerEntity, 350);
     }
 }
 
 void Scene::update(uint64_t dt) {
     // Handle player and any AI first, since this deals with input
     _player.update(_registry, dt);
+    _npc.update(_registry, dt);
 
     _movement.update(_registry, dt);
     _animation.update(_registry, dt);
@@ -73,6 +88,7 @@ void Scene::update(uint64_t dt) {
 
 void Scene::render() {
     _player.render(_registry);
+    _npc.render(_registry);
 
     _movement.render(_registry);
     _animation.render(_registry);

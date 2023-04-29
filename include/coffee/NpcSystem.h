@@ -8,6 +8,8 @@
 
 #pragma once
 
+#include <numeric>
+
 #include "coffee/ISystem.h"
 #include "entt/entt.hpp"
 
@@ -15,13 +17,16 @@ namespace coffee {
 namespace engine {
 
 // Tag for entities that will be player controllable
-struct PlayerControllableTag {};
+struct NpcAI {
+    entt::entity target = entt::null;
+    float senseDistance = 1000.0;
+};
 
 // User Input - emmits events to the appropriate listeners
-class PlayerSystem : ISystem {
+class NpcSystem : ISystem {
    public:
-    PlayerSystem() = default;
-    virtual ~PlayerSystem() {}
+    NpcSystem() = default;
+    virtual ~NpcSystem() {}
 
     // Update componenets affected by this system
     void update(entt::registry &registry, uint64_t dt) override;
