@@ -23,7 +23,11 @@ Scene::Scene(SDL_Renderer *renderer)
       _animation(renderer),
       _movement() {}
 
-void Scene::initialize() {
+void Scene::initialize(engine::InputHandler &input) {
+    // Form signal/event connections between systems
+    input.sig().connect(&_player, &engine::PlayerSystem::keyButtonEvent,
+                        std::placeholders::_1);
+
     // Load textures into the cache
 
     // Get executable path

@@ -9,6 +9,7 @@
 #pragma once
 
 #include "coffee/ISystem.h"
+#include "coffee/InputHandler.h"
 #include "entt/entt.hpp"
 
 namespace coffee {
@@ -28,6 +29,13 @@ class PlayerSystem : ISystem {
 
     // Render components affected by this system
     void render(entt::registry &registry) const override;
+
+    // Listener for handling KeyEvents
+    void keyButtonEvent(KeyEvent event);
+
+   private:
+    std::vector<KeyEvent>
+        _keyQueue;  // FIXME: inheritance - handler for different events
 };
 
 }  // namespace engine

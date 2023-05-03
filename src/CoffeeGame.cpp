@@ -61,11 +61,12 @@ void CoffeeGame::run() {
     }
 
     // Get the input
+    // TODO: combine with the renderer as part of a Window object
     engine::InputHandler* g_input = engine::InputHandler::GetInstance();
 
     // Create and initialize the game level
     Scene scene(_renderer);
-    scene.initialize();
+    scene.initialize(*g_input);
 
     // Main game loop
     bool quit = false;

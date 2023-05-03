@@ -4,6 +4,7 @@ project(coffee-tests LANGUAGES CXX)
 # # Add test executable target
 set(coffee_TEST_SRC
     SceneTests.cpp
+    SignalTests.cpp
     EntityTests.cpp
 )
 

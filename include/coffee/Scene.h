@@ -10,6 +10,7 @@
 
 #include "coffee/AnimationSystem.h"
 #include "coffee/Assets.h"
+#include "coffee/InputHandler.h"
 #include "coffee/MovementSystem.h"
 #include "coffee/NpcSystem.h"
 #include "coffee/PlayerSystem.h"
@@ -25,7 +26,7 @@ class Scene {
     explicit Scene(SDL_Renderer* renderer);
 
     // initialize object
-    void initialize();
+    void initialize(engine::InputHandler& input);
 
     // update the state of the scene
     void update(uint64_t dt);

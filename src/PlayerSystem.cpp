@@ -15,22 +15,36 @@
 namespace coffee {
 namespace engine {
 
+void PlayerSystem::keyButtonEvent(KeyEvent event) {
+    // Insert in queue
+    // Note: need to insert in the queue and cannot easily update directly,
+    // because this method does not have access to the registry
+
+    // TODO: dpad events could be processed on receipt, only pushing other
+    // events back into the queue
+    _keyQueue.push_back(event);
+}
+
 // Update componenets affected by this system
 void PlayerSystem::update(entt::registry &registry, uint64_t /*dt*/) {
-    // FIXME: much of this code is going to be similar for the AI and the Player
-    // systems, will need to figure out how to consolidate?
+    // Initialize check for direction-pad events
+    bool dpadUpdate = false;
+    uint32_t moving = 0;
+    Vec2f inputDir = Vec2f::Zero();
 
-    // For the basic keyboard input, the player cannot look in any
-    // direction without first moving.  The final facing direction is
-    // retained.
-
-    // input state
-    InputHandler *g_input = InputHandler::GetInstance();
-    const Vec2i directionInput = g_input->directionInput();
-
-    // If there are no directional inputs, there is no movement, and no need to
-    // update the direction
-    const bool pressed = directionInput.x() != 0 || directionInput.y() != 0;
+    for (const auto &k : _keyQueue) {
+        if (k.key == KeyButton::DPad) {
+            dpadUpdate = true;
+            const bool pressed = k.dir.x() != 0 || k.dir.y() != 0;
+            moving = 0;  // Default to no movement
+                         // Only update the direction if the player is moving
+            if (pressed) {
+                moving = 1;
+                inputDir = k.dir.template cast<float>();
+            }
+        }
+    }
+    _keyQueue.clear();
 
     // View into components
     auto view = registry.view<PlayerControllableTag, Direction, Speed>();
@@ -38,17 +52,17 @@ void PlayerSystem::update(entt::registry &registry, uint64_t /*dt*/) {
     // Update position from movement
     for (auto entity : view) {
         // Update movement
-        // Turns are performed instantaneously, so they are updated by incoming
-        // events
+        // Turns are performed instantaneously, so they are updated by
+        // incoming events
         // @todo add a target and current direction to allow for inertia in
         // turning
         auto &dir = view.get<Direction>(entity);
         auto &speed = view.get<Speed>(entity);
-
-        speed.moving = 0;
-        if (pressed) {
-            speed.moving = 1;
-            dir.value = directionInput.template cast<float>();
+        if (dpadUpdate) {
+            speed.moving = moving;
+            if (moving > 0) {  // only update direction if moving
+                dir.value = inputDir;
+            }
         }
     }
 }

@@ -18,6 +18,7 @@ namespace engine {
 using Vec2f = Eigen::Vector<float, 2>;
 using Vec2u = Eigen::Vector<uint32_t, 2>;
 using Vec2i = Eigen::Vector<int32_t, 2>;
+using Vec2i8 = Eigen::Vector<int8_t, 2>;
 
 // Position component
 // Note: position is given as an int in order to not have roundoff errors at

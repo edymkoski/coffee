@@ -42,7 +42,6 @@ void NpcSystem::update(entt::registry &registry, uint64_t /*dt*/) {
         const Vec2f vecf = vec.template cast<float>();
         // Compute square of the distance
         const float dist = vecf.x() * vecf.x() + vecf.y() * vecf.y();
-        printf("distance: %f\n", dist);
 
         speed.moving = 0;
         if (dist < ai.senseDistance * ai.senseDistance) {
