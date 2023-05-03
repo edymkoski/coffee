@@ -58,16 +58,20 @@ void Scene::initialize(engine::InputHandler &input) {
     // FIXME: generators for different entities
 
     // Create a player character
-    const auto playerEntity = _registry.create();
-    {
-        const auto entity = playerEntity;
+    entt::entity playerEntity;
+    for (uint8_t i = 0; i < 2; ++i) {
+        const auto entity = _registry.create();
         _registry.emplace<engine::Animation>(entity, _frames["right_walk"_hs],
                                              0, 200);
-        _registry.emplace<engine::Position>(entity, engine::Vec2i(50, 100));
+        _registry.emplace<engine::Position>(entity,
+                                            engine::Vec2i(50 + 100 * i, 100));
         _registry.emplace<engine::Direction>(entity, engine::Vec2f(100, 0));
         _registry.emplace<engine::Speed>(entity, 350.0f, 0);
 
-        _registry.emplace<engine::PlayerControllableTag>(entity);
+        _registry.emplace<engine::PlayerControl>(entity, i);
+
+        // Last player will be used for targeting
+        playerEntity = entity;
     }
     // Create a NPC
     {
@@ -77,6 +81,8 @@ void Scene::initialize(engine::InputHandler &input) {
         _registry.emplace<engine::Position>(entity, engine::Vec2i(400, 400));
         _registry.emplace<engine::Direction>(entity, engine::Vec2f(100, 0));
         _registry.emplace<engine::Speed>(entity, 150.0f, 0);
+
+        // FIXME: procedural targeting
         _registry.emplace<engine::NpcAI>(entity, playerEntity, 350);
     }
 }

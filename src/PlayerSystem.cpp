@@ -47,7 +47,7 @@ void PlayerSystem::update(entt::registry &registry, uint64_t /*dt*/) {
     _keyQueue.clear();
 
     // View into components
-    auto view = registry.view<PlayerControllableTag, Direction, Speed>();
+    auto view = registry.view<PlayerControl, Direction, Speed>();
 
     // Update position from movement
     for (auto entity : view) {
@@ -56,9 +56,10 @@ void PlayerSystem::update(entt::registry &registry, uint64_t /*dt*/) {
         // incoming events
         // @todo add a target and current direction to allow for inertia in
         // turning
+        auto &control = view.get<PlayerControl>(entity);
         auto &dir = view.get<Direction>(entity);
         auto &speed = view.get<Speed>(entity);
-        if (dpadUpdate) {
+        if (dpadUpdate && control.active) {
             speed.moving = moving;
             if (moving > 0) {  // only update direction if moving
                 dir.value = inputDir;

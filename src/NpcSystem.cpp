@@ -38,6 +38,11 @@ void NpcSystem::update(entt::registry &registry, uint64_t /*dt*/) {
         // NPC behavior is going to be to walk towards the player, if close
         // enough
         const auto &targetPos = registry.get<const Position>(ai.target);
+
+        // FIXME: how to obtain a target??  Direct from the PlayerSystem, or
+        // should there be an independent targeting system that updates targets
+        // for the AI?
+
         const Vec2i vec = targetPos.value - pos.value;
         const Vec2f vecf = vec.template cast<float>();
         // Compute square of the distance

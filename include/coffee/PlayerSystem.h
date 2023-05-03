@@ -16,7 +16,9 @@ namespace coffee {
 namespace engine {
 
 // Tag for entities that will be player controllable
-struct PlayerControllableTag {};
+struct PlayerControl {
+    uint8_t active = 0;
+};
 
 // User Input - emmits events to the appropriate listeners
 class PlayerSystem : ISystem {
