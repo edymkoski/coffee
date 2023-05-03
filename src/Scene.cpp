@@ -59,7 +59,7 @@ void Scene::initialize(engine::InputHandler &input) {
     // FIXME: generators for different entities
 
     // Create a player character
-    for (uint8_t i = 0; i < 2; ++i) {
+    for (int i = 0; i < 2; ++i) {
         const auto entity = _registry.create();
         _registry.emplace<engine::Animation>(entity, _frames["right_walk"_hs],
                                              0, 200);
@@ -68,7 +68,8 @@ void Scene::initialize(engine::InputHandler &input) {
         _registry.emplace<engine::Direction>(entity, engine::Vec2f(100, 0));
         _registry.emplace<engine::Speed>(entity, 350.0f, 0);
 
-        _registry.emplace<engine::PlayerControl>(entity, i);
+        uint8_t selected = i == 0 ? 1 : 0;
+        _registry.emplace<engine::PlayerControl>(entity, selected);
     }
     // Create a NPC
     {

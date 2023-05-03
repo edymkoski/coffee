@@ -39,11 +39,20 @@ void InputHandler::handleInput() {
         // Record state of the D-Pad
         const auto scancode = event.key.keysym.scancode;
 
-        // State switch
+        // Action switch
         if (scancode == SDL_SCANCODE_SPACE && event.type == SDL_KEYDOWN) {
             // Emit a keyboard event
             KeyEvent keyEvent;
             keyEvent.key = KeyButton::Action;
+
+            _sig(keyEvent);
+        }
+
+        // Select switch
+        if (scancode == SDL_SCANCODE_Q && event.type == SDL_KEYDOWN) {
+            // Emit a keyboard event
+            KeyEvent keyEvent;
+            keyEvent.key = KeyButton::Select;
 
             _sig(keyEvent);
         }

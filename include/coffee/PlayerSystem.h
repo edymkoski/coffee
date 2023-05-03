@@ -36,8 +36,15 @@ class PlayerSystem : ISystem {
     void keyButtonEvent(KeyEvent event);
 
    private:
-    std::vector<KeyEvent>
-        _keyQueue;  // FIXME: inheritance - handler for different events
+    // Storage for the last command, in order to process events as they arrive
+    int _selectCount = 0;
+
+    struct MovementCmd {
+        uint32_t moving = 0;
+        Vec2f inputDir = Vec2f::Zero();
+    };
+    MovementCmd _lastCmd = {};
+    bool _dPadUpdate = false;
 };
 
 }  // namespace engine

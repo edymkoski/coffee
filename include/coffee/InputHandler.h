@@ -16,7 +16,7 @@
 namespace coffee {
 namespace engine {
 
-enum class KeyButton : uint8_t { None, Action, DPad };
+enum class KeyButton : uint8_t { None, Action, Select, DPad };
 
 struct KeyEvent {
     KeyButton key = KeyButton::None;
