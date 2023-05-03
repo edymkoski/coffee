@@ -21,7 +21,8 @@ Scene::Scene(SDL_Renderer *renderer)
       _player(),
       _npc(),
       _animation(renderer),
-      _movement() {}
+      _movement(),
+      _target() {}
 
 void Scene::initialize(engine::InputHandler &input) {
     // Form signal/event connections between systems
@@ -58,7 +59,6 @@ void Scene::initialize(engine::InputHandler &input) {
     // FIXME: generators for different entities
 
     // Create a player character
-    entt::entity playerEntity;
     for (uint8_t i = 0; i < 2; ++i) {
         const auto entity = _registry.create();
         _registry.emplace<engine::Animation>(entity, _frames["right_walk"_hs],
@@ -69,9 +69,6 @@ void Scene::initialize(engine::InputHandler &input) {
         _registry.emplace<engine::Speed>(entity, 350.0f, 0);
 
         _registry.emplace<engine::PlayerControl>(entity, i);
-
-        // Last player will be used for targeting
-        playerEntity = entity;
     }
     // Create a NPC
     {
@@ -83,12 +80,13 @@ void Scene::initialize(engine::InputHandler &input) {
         _registry.emplace<engine::Speed>(entity, 150.0f, 0);
 
         // FIXME: procedural targeting
-        _registry.emplace<engine::NpcAI>(entity, playerEntity, 350);
+        _registry.emplace<engine::NpcAI>(entity, entt::null, 350);
     }
 }
 
 void Scene::update(uint64_t dt) {
     // Handle player and any AI first, since this deals with input
+    _target.update(_registry, dt);
     _player.update(_registry, dt);
     _npc.update(_registry, dt);
 
@@ -97,6 +95,7 @@ void Scene::update(uint64_t dt) {
 }
 
 void Scene::render() {
+    _target.render(_registry);
     _player.render(_registry);
     _npc.render(_registry);
 

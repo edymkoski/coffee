@@ -2,6 +2,7 @@ set(coffee_SRC
     AnimationSystem.cpp
     Assets.cpp
     MovementSystem.cpp
+    TargetSystem.cpp
     Scene.cpp
     coffee.cpp
     CoffeeGame.cpp

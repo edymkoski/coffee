@@ -35,23 +35,23 @@ void NpcSystem::update(entt::registry &registry, uint64_t /*dt*/) {
         auto &speed = view.get<Speed>(entity);
         auto &ai = view.get<NpcAI>(entity);
 
-        // NPC behavior is going to be to walk towards the player, if close
-        // enough
-        const auto &targetPos = registry.get<const Position>(ai.target);
+        // NPC behavior is going to be to walk towards the target, if close
+        // enough, and if the target is valid
+        if (registry.valid(ai.target)) { 
+            const auto &targetPos = registry.get<const Position>(ai.target);
 
-        // FIXME: how to obtain a target??  Direct from the PlayerSystem, or
-        // should there be an independent targeting system that updates targets
-        // for the AI?
+            const Vec2i vec = targetPos.value - pos.value;
+            const Vec2f vecf = vec.template cast<float>();
+            // Compute square of the distance
+            const float dist = vecf.x() * vecf.x() + vecf.y() * vecf.y();
 
-        const Vec2i vec = targetPos.value - pos.value;
-        const Vec2f vecf = vec.template cast<float>();
-        // Compute square of the distance
-        const float dist = vecf.x() * vecf.x() + vecf.y() * vecf.y();
-
-        speed.moving = 0;
-        if (dist < ai.senseDistance * ai.senseDistance) {
-            speed.moving = 1;
-            dir.value = vecf;
+            speed.moving = 0;
+            if (dist < ai.senseDistance * ai.senseDistance) {
+                speed.moving = 1;
+                dir.value = vecf;
+            }
+        } else {
+            speed.moving = 0;
         }
     }
 }

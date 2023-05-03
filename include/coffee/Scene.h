@@ -9,6 +9,7 @@
 #pragma once
 
 #include "coffee/AnimationSystem.h"
+#include "coffee/TargetSystem.h"
 #include "coffee/Assets.h"
 #include "coffee/InputHandler.h"
 #include "coffee/MovementSystem.h"
@@ -49,6 +50,7 @@ class Scene {
     engine::NpcSystem _npc;
     engine::AnimationSystem _animation;
     engine::MovementSystem _movement;
+    engine::TargetSystem _target;
 };
 
 }  // namespace coffee
