@@ -18,15 +18,22 @@ AnimationSystem::AnimationSystem(SDL_Renderer *renderer)
     : _renderer(renderer) {}
 
 void AnimationSystem::update(entt::registry &registry, uint64_t dt) {
-    auto view = registry.view<Animation>();
+    auto view = registry.view<Sprite>();
 
     uint32_t dt32 = static_cast<uint32_t>(dt);
     for (auto entity : view) {
-        auto &anim = view.get<Animation>(entity);
+        auto &sprite = view.get<Sprite>(entity);
         // make sure it loops properly
-        const uint32_t length = anim.frames->size() * anim.speed;
-        anim.time += dt32;
-        anim.time = anim.time % length;
+        // const uint32_t length = anim.frames->size() * anim.speed;
+        // anim.time += dt32;
+        // anim.time = anim.time % length;
+        // control.animation.animationState->execute(control.animation, dt);
+        auto [animationOut, endTime] =
+            sprite.animation.animationState->execute(sprite.control, dt);
+
+        // Update the sprite to the output state
+        sprite.animation = animationOut;
+        sprite.control.time = endTime;
     }
 }
 
@@ -37,12 +44,13 @@ void AnimationSystem::render(entt::registry &registry) const {
 
     // FIXME: what order to render in?
     for (auto entity : view) {
-        auto &anim = view.get<const Animation>(entity);
+        auto &sprite = view.get<const Sprite>(entity);
         auto &pos = view.get<const Position>(entity);
 
-        auto idx = anim.time / anim.speed;
+        // auto idx = anim.time / anim.speed;
 
-        SDL_Texture *tex = anim.frames->operator[](idx);
+        // SDL_Texture *tex = anim.frames->operator[](idx);
+        SDL_Texture *tex = sprite.animation.texture;
 
         int w;
         int h;

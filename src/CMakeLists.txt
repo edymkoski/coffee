@@ -1,4 +1,5 @@
 set(coffee_SRC
+    AnimationState.cpp
     AnimationSystem.cpp
     Assets.cpp
     MovementSystem.cpp

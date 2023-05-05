@@ -16,16 +16,10 @@ namespace coffee {
 namespace engine {
 
 // Animation component
-
-struct Animation {
-    // pointer to frames
-    entt::resource<engine::SDLFrames> frames;
-
-    // progressed time, ms
-    uint32_t time = 0;
-
-    // ms / frame
-    uint32_t speed = 100;
+// FIXME: this naming around animations is pretty convoluted
+struct Sprite {
+    Animation animation;
+    AnimationControl control;
 };
 
 // System for running animations for sprites

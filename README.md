@@ -17,7 +17,7 @@ Easy to pick up, over a cup of coffee.
 Basic Engine
 
 A basic demo for building out the engine architecture includes:
-- Multiple player controllable entities, and the ability to switch between them w/overlay
+- Multiple player controllable entities, and the ability to switch between them using a Animation Control Graph
 - Player can shoot/collide with targets
 - [DONE] Simple AI entities that can pursue the player characters
 - Basic particle and emitter effect, with player manipulated interactions (ex: attractor or grass)

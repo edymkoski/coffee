@@ -56,13 +56,23 @@ void Scene::initialize(engine::InputHandler &input) {
     _frames.load("right_walk"_hs, texPath.c_str(), _renderer,
                  SDL_Rect{0, 64, 32, 32}, 4, 4.0);
 
+    // Animation control state machines
+    AnimationStatePtr rightWalk(new IdleState{_frames["right_walk"_hs], 200});
+    AnimationStatePtr rightIdle(new IdleState{_frames["right_idle"_hs], 200});
+
     // FIXME: generators for different entities
 
     // Create a player character
     for (int i = 0; i < 2; ++i) {
         const auto entity = _registry.create();
-        _registry.emplace<engine::Animation>(entity, _frames["right_walk"_hs],
-                                             0, 200);
+        // _registry.emplace<engine::Animation>(entity,
+        // _frames["right_walk"_hs],
+        //                                      0, 200);
+
+        // Have overall animation timescale set by entity
+        _registry.emplace<engine::Sprite>(entity, rightWalk, nullptr, 0,
+                                          1.0 * (i + 1));
+
         _registry.emplace<engine::Position>(entity,
                                             engine::Vec2i(50 + 100 * i, 100));
         _registry.emplace<engine::Direction>(entity, engine::Vec2f(100, 0));
@@ -74,8 +84,10 @@ void Scene::initialize(engine::InputHandler &input) {
     // Create a NPC
     {
         const auto entity = _registry.create();
-        _registry.emplace<engine::Animation>(entity, _frames["right_idle"_hs],
-                                             0, 200);
+        // _registry.emplace<engine::Animation>(entity,
+        // _frames["right_idle"_hs],
+        //                                      0, 200);
+        _registry.emplace<engine::Sprite>(entity, rightIdle, nullptr, 0, 1.0);
         _registry.emplace<engine::Position>(entity, engine::Vec2i(400, 400));
         _registry.emplace<engine::Direction>(entity, engine::Vec2f(100, 0));
         _registry.emplace<engine::Speed>(entity, 150.0f, 0);
